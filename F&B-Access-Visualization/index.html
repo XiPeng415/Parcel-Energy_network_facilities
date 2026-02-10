@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Parcel Energy With F&B Access</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/vis-network@9.1.6/dist/vis-network.min.js"></script>
+</head>
+<body>
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading network data...</p>
+    <p id="load-status" class="loading-subtext">Initializing...</p>
+  </div>
+
+  <header>
+    <h1>Parcel Energy With F&B Access</h1>
+  </header>
+
+  <div class="controls-bar">
+    <div class="control-group">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search nodes by label..." />
+      <button class="btn" onclick="resetView()">Reset View</button>
+      <button class="btn btn-secondary" onclick="fitNetwork()">Fit to Screen</button>
+      <button class="btn btn-secondary" onclick="runLayout()">Run Layout</button>
+    </div>
+    <div class="control-group">
+      <button class="btn btn-secondary" onclick="toggleLegend()">Toggle Legend</button>
+    </div>
+  </div>
+
+  <div class="main-container">
+    <div class="network-wrapper">
+      <div id="network-canvas"></div>
+
+      <div class="info-panel">
+        <h3>Network Statistics</h3>
+        <div class="stat-row">
+          <span class="stat-label">Total Nodes</span>
+          <span class="stat-value" id="nodeCount">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Total Edges</span>
+          <span class="stat-value" id="edgeCount">0</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Selected</span>
+          <span class="stat-value" id="selectedInfo">None</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Visible Nodes</span>
+          <span class="stat-value" id="visibleNodes">0</span>
+        </div>
+      </div>
+
+      <div class="legend-panel" id="legendPanel">
+        <h3>Node Types</h3>
+        <div id="legendContent"></div>
+      </div>
+    </div>
+
+    <div id="sidebar" class="sidebar">
+      <div class="sidebar-header">
+        <h2 id="sidebarTitle">Node Details</h2>
+        <button class="close-btn" onclick="closeSidebar()">&times;</button>
+      </div>
+      <div class="sidebar-content" id="sidebarContent">
+        <p class="muted">Click on a node or edge to view details</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="networkMapSection" class="network-map-section large-map" style="display: none;">
+    <div class="network-map-header">
+      <h3>Parcel Location</h3>
+      <button class="btn-mini" onclick="fitNetworkMap()">Fit</button>
+    </div>
+    <div id="networkMiniMap" class="map-large"></div>
+    <div id="networkMapStatus" class="network-map-status"></div>
+    <div id="networkMapLegend" class="network-map-legend"></div>
+  </div>
+
+  <div id="connectionsPanel" class="connections-panel">
+    <div class="connections-header">
+      <h3>F&B Connections And Paths</h3>
+      <div class="connections-legend" id="connectionsLegend"></div>
+    </div>
+    <div id="connectionsContent" class="connections-content">
+      <p class="muted">Select a parcel to see connected F&B facilities, distances, and shared parcels.</p>
+    </div>
+  </div>
+
+  <script src="loader.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
